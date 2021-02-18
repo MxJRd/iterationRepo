@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Donation from './components/Donation.jsx'
+import Donation from './components/Donation.jsx';
+
 
 
 class App extends Component {
@@ -22,21 +23,24 @@ class App extends Component {
             })
             .catch(err => console.log('get project: ERROR: ', err));
     }
-
+    
     render() {
-
+       
         return (
-            <div>
+            
+            <div className="home">
                 <div className="main">
                     <h1>Codesmith Alumni Scholarship</h1>
                     <p>info about scholarship </p>
                     <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
                 </div>
-                <div className="btn">
+                <form>
                     <button id="donateHome"> Donate </button>
                     <button id="applyHome">Apply</button>
-                </div>
-                <Donation />
+                </form>
+               <Donation />
+               
+                
 
             </div>
         )

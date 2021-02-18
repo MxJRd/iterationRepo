@@ -1,5 +1,4 @@
 const db = require("../models/databaseModel.js");
-
 class UpdateControllerBlueprint {
   async changePassword(req, res, next) {
     

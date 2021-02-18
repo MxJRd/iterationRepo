@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-// import { Switch, Route } from 'react-router-dom';
 import '../styles.css';
 import { makeStyles } from '@material-ui/core/styles'
-/*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*/
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
-/*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*//*Material UI*/
+import Button from '@material-ui/core/Button';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -33,12 +32,13 @@ export default function Donation (props) {
     const [ email, setEmail ] = useState('');
     const [ username, setUsername] = useState('');
     const [ password, setPassword ] = useState('');
+  
 
-         
+   
 
     function inputSubmitted(e){
-      setName(e.target.value);//Kate
-      setDonationAmount(e.target.value);//$10
+      setName(e.target.value);
+      setDonationAmount(e.target.value);
       setCreditCard(e.target.value);
       setPhone(e.target.value);
       setDate(e.target.value);
@@ -46,7 +46,7 @@ export default function Donation (props) {
       setUsername(e.target.value);
       setPassword(e.target.value);
       
-      const donation = { 'name': name,
+      const donations = { 'name': name,
                         'donationAmount': donationAmount,
                         'creditCard': creditCard,
                         'phone': phone,
@@ -57,31 +57,19 @@ export default function Donation (props) {
                         'username': username,
                         'password': password
       }      
-      console.log('donationOBJ', donation)            
-      console.log('membersOBJ', members)            
-    }
-   
-    // handleClick(event) {
-    //     const donations = { name : this.state.name,
-    //                         //name : document.getElementById("name").value,
-    //                         donationAmount : this.state.donationAmount,
-    //                         creditCard : this.state.creditCard, 
-    //                         phone : this.state.phone, 
-    //                         date : this.state.date, 
-    //                         email: this.state.email
-    //                       };
-    //     const members = { username : this.state.username , password : this.state.password };
+      console.log('donationOBJ', donations)            
+      console.log('membersOBJ', members)     
+      
+      
+        fetch('/donation/makeDonation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({donations, members})
+        })
+      }
 
-    //     preventDefault(event);
-    //     fetch('/donate', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({donations, members})
-    //     })
-
-    // }
       const resultArr = [];
       const formItems = ["name", "donationAmount", "creditCard", "phone", "date", "email", "username", "password"];
       const formFunc =  [setName, setDonationAmount, setCreditCard, setPhone, setDate, setEmail, setUsername, setPassword]
@@ -91,16 +79,11 @@ export default function Donation (props) {
       }
         return (
           <section>
-      
             <form className={classes.root} noValidate autoComplete="off" >
               {resultArr}
               <Button variant="contained" color="primary" disableElevation style={{backgroundColor:"blue"}} onClick={inputSubmitted} >submit</Button>
             </form>
-            
           </section>
-             
-                
-
         )
     
 };
