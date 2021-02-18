@@ -1,14 +1,18 @@
 const express = require('express');
 const editAccountRouter = express.Router();
-const makeDonation = require('../controllers/CreateController.js')
+const { changePassword, changeUsername } = require('../controllers/UpdateController.js')
 
 
-editAccountRouter.put("/changeUsername", CreateController.makeDonation, (req, res) => {
-  res.sendStatus(200);
-});
-editAccountRouter.put("/changePassword", CreateController.makeDonation, (req, res) => {
-  res.sendStatus(200);
-});
+editAccountRouter.patch("/changeUsername",
+  changeUsername,
+  (req, res) => {
+    res.sendStatus(200);
+  });
+editAccountRouter.patch("/changePassword",
+  changePassword,
+  (req, res) => {
+    res.sendStatus(200);
+  });
 
- 
+
 module.exports = editAccountRouter;
