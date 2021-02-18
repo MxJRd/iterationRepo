@@ -1,5 +1,4 @@
 const db = require("../models/databaseModel.js");
-
 class UpdateControllerBlueprint {
   async changePassword(req, res, next) {
     // destructor request body
@@ -17,7 +16,7 @@ class UpdateControllerBlueprint {
 
   }
 }
- 
+
 const UpdateController = new UpdateControllerBlueprint();
 module.exports = {
   makeDonation
