@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Donation from './components/Donation.jsx';
+import Members from './components/Members.jsx'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Apply from './components/Apply.jsx';
 import ButtonAppBar from './components/Appbar.jsx';
@@ -10,7 +11,7 @@ class App extends Component {
         this.state = {};
     } componentDidMount() {
         console.log("inside component did mount")
-        fetch('/getDonations')
+        fetch('/getDonationsSum')
             .then(res => res.json())
             .then((totals) => {
                 console.log('totals: ', totals)
@@ -31,7 +32,9 @@ class App extends Component {
                                 <ButtonAppBar />
                                 <h1>Codesmith Alumni Scholarship</h1>
                                 <p>info about scholarship </p>
-                                <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>                    </div>
+                                <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
+                                <h3 id="totalHomePage">Total Lives Changed: {Math.floor((this.state.totalRaised) / 18800)}</h3>
+                            </div>
                             <button><Link to="/donation"> Donate </Link></button>
                             <button><Link to="/apply" style={{ color: 'black' }}> Apply </Link></button>
                         </Route>
@@ -40,6 +43,9 @@ class App extends Component {
                         </Route>
                         <Route path="/apply">
                             <Apply />
+                        </Route>
+                        <Route path="/members">
+                            <Members />
                         </Route>
                     </Switch>
                 </div>

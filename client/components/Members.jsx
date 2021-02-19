@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import '../styles.css';
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,46 +24,54 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Donation (props) {
-    // const classes = useStyles();
-    const [ username, setUsername] = useState('');
-    const [ password, setPassword ] = useState('');
+export default function Members(props) {
+  // const classes = useStyles();
+  const [donations, setDonations] = useState('');
+  const [date, setDate] = useState('');
 
-         
 
-    function inputSubmitted(e){
-      setUsername(e.target.value);
-      setPassword(e.target.value);
+  useEffect(() => {
+    fetch('/login/authenticate', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ donations, date })
+    })
+  })
+  function inputSubmitted(e) {
+    setUsername(e.target.value);
+    setPassword(e.target.value);
 
-      const members = {
-                        'username': username,
-                        'password': password
-      }     
-      
-      fetch('/login/authenticate', {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({donations, members})
-        })
-      }
+    // const members = {
+    //   'donations': donations,
+    //   'date': date
+    // }
 
-      const resultArr = [];
-      const formItems = ["name", "donationAmount", "creditCard", "phone", "date", "email", "username", "password"];
-      const formFunc =  [setName, setDonationAmount, setCreditCard, setPhone, setDate, setEmail, setUsername, setPassword]
-      // formItems.forEach(name => resultArr.push( <TextField id="outlined-basic" label={name} onChange={event => "set"+{name}(event.target.value)} variant="outlined"/>))
-      for (let i = 0; i < formItems.length; i++){
-        resultArr.push( <TextField id="outlined-basic" label={formItems[i]} onChange={event => formFunc[i](event.target.value)} variant="outlined"/>)
-      }
-        return (
-          <section>
-            <form className={classes.root} noValidate autoComplete="off" >
-              {resultArr}
-              <Button variant="contained" color="primary" disableElevation style={{backgroundColor:"blue"}} onClick={inputSubmitted} >submit</Button>
-            </form>
-          </section>
-        )
-    
+
+  }
+  return (
+    <section>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <Paper>Donation Amount</Paper>
+          <Paper>{donations}</Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper>Date of Donation</Paper>
+          <Paper>{date}</Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper></Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper></Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper></Paper>
+        </Grid>
+      </Grid>
+    </section>
+  )
+
 };
-

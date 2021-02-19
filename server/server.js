@@ -17,7 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
 app.use('/donation', donationRouter);
 // app.use('/editaccount', editAccountRouter);
+
 app.use('/login', loginRouter);
+
 // app.use('/application', applicationRouter);
 
 app.get("/getDonationsSum", getDonationsSum, (req, res) => {
@@ -41,7 +43,8 @@ app.use((err, req, res, next) => {
     status: 500,
     message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultErr, err);
+  // const errorObj = Object.assign({}, defaultErr, err);
+  const errorObj = err;
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });

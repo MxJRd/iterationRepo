@@ -4,7 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField'; const useStyles = makeStyles((theme) => ({
+import TextField from '@material-ui/core/TextField';
+
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -15,6 +17,7 @@ import TextField from '@material-ui/core/TextField'; const useStyles = makeStyle
     flexGrow: 1,
   },
 }));
+
 const useStyles2 = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -23,12 +26,13 @@ const useStyles2 = makeStyles((theme) => ({
     },
   },
 }));
+
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const classes2 = useStyles2(); const [username, setUsername] = useState('');
-  const [password, setPassword] = useState(''); function loginFunc(e) {
-    setUsername(e.target.value)
-    setPassword(e.target.value)
+  const classes2 = useStyles2();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  function loginFunc(e) {
     const loginInfo = {
       'username': username,
       'password': password
@@ -41,6 +45,7 @@ export default function ButtonAppBar() {
       body: JSON.stringify(loginInfo)
     })
   }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -50,8 +55,17 @@ export default function ButtonAppBar() {
             Show your mercy
           </Typography>
           <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="standard-basic" label="Login" style={{ color: "white" }} />
-            <TextField id="standard-basic" label="Password" style={{ color: "white" }} />
+            <TextField id="standard-basic" onChange={
+              (e) => {
+                setUsername(e.target.value)
+              }}
+              label="Login" style={{ color: "white" }}
+            />
+            <TextField id="standard-basic" onChange={
+              (e) => {
+                setPassword(e.target.value)
+              }}
+              label="Password" style={{ color: "white" }} />
           </form>
           <Button color="inherit" onClick={loginFunc}>Login</Button>
         </Toolbar>

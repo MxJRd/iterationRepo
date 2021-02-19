@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const useStyles2 = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -26,6 +27,7 @@ const useStyles2 = makeStyles((theme) => ({
     },
   },
 }));
+
 export default function Apply(props) {
   const classes = useStyles();
   const classes2 = useStyles2(); const [name, setName] = useState('');
@@ -50,9 +52,11 @@ export default function Apply(props) {
       },
       body: JSON.stringify(application)
     })
+
     alert("Thank you for your application!");
     window.location.replace("http://localhost:8080/")
-  } const resultArr = [];
+  } 
+  const resultArr = [];
   const formItems = ["name", "phone", "email", "essay"];
   const formFunc = [setName, setPhone, setEmail, setEssay]
   // formItems.forEach(name => resultArr.push( <TextField id="outlined-basic" label={name} onChange={event => "set"+{name}(event.target.value)} variant="outlined"/>))
@@ -70,6 +74,7 @@ export default function Apply(props) {
       resultArr.push(<TextField id="outlined-basic" label={formItems[i]} onChange={event => formFunc[i](event.target.value)} variant="outlined" />)
     }
   }
+  
   return (
     <section style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <h2>Application Form</h2>

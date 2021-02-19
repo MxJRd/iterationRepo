@@ -1,5 +1,6 @@
 const db = require("../models/databaseModel");
 const { getUsernameQuery, getAllDonationsQuery } = require('./queryFunctions/GetQueries.js');
+const { makeDonation } = require('./CreateController.js');
 
 
 class GetControllerBlueprint {
@@ -17,8 +18,22 @@ class GetControllerBlueprint {
   };
   async getLogin(req, res, next) { //runs only when user is logged in.
 
+    const { members } = req.body;
+    const { username } = members;
+    const usersPKQuery = `SELECT _id FROM users WHERE user_name = '${username}'`;
+    const foreignKeyResult = await db.query(usersPKQuery);
+    const foreignKey = foreignKeyResult.rows[0]["_id"];
 
+    const memberHistoryQuery = `SELECT * FROM donations WHERE fk_user_id=${foreignKey}`;
+    const memberHistoryResult = await db.query(memberHistoryQuery);
+    console.log("🚀 ~ file: CreateController.js ~ line 33 ~ CreateControllerBlueprint ~ makeDonation ~ memberHistory", memberHistory);
 
+    const donationAmount = memberHistoryResult.rows[0]['amount']
+    const donationDate = memberHistoryResult.rows[0]['date']
+    const donationInformation = {
+      donationAmount,
+      donationDate
+    }
     next();
   }
 }

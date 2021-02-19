@@ -3,6 +3,7 @@ const { hashCreatePassword, hashCreateCreditCard } = require('./queryFunctions/H
 
 class CreateControllerBlueprint {
   async makeDonation(req, res, next) {
+    console.log("inside makeDonation")
     // destructor request body 
     const { donations, members } = req.body;
     console.log("🚀 ~ file: CreateController.js ~ line 8 ~ CreateControllerBlueprint ~ makeDonation ~ donations", donations);
@@ -33,22 +34,22 @@ class CreateControllerBlueprint {
 
 
 
-    const { donations, members } = req.body;
-    const { username, password } = members;
-    const usersPKQuery = `SELECT _id FROM users WHERE user_name = '${username}'`;
-    const foreignKeyResult = await db.query(usersPKQuery);
-    const foreignKey = foreignKeyResult.rows[0]["_id"];
-    const memberHistoryQuery = `SELECT * FROM donations WHERE fk_user_id=${foreignKey}`;
-    const memberHistoryResult = await db.query(memberHistoryQuery);
-    console.log("🚀 ~ file: CreateController.js ~ line 33 ~ CreateControllerBlueprint ~ makeDonation ~ memberHistory", memberHistory);
-    const donationAmount = memberHistoryResult.rows[0]['amount']
-    const donationDate = memberHistoryResult.rows[0]['date']
-    const donationInformation = {
-      donationAmount,
-      donationDate
-    }
+    // const { donations, members } = req.body;
+    // const { username, password } = members;
+    // const usersPKQuery = `SELECT _id FROM users WHERE user_name = '${username}'`;
+    // const foreignKeyResult = await db.query(usersPKQuery);
+    // const foreignKey = foreignKeyResult.rows[0]["_id"];
+
+    // const memberHistoryQuery = `SELECT * FROM donations WHERE fk_user_id=${foreignKey}`;
+    // const memberHistoryResult = await db.query(memberHistoryQuery);
+    // console.log("🚀 ~ file: CreateController.js ~ line 33 ~ CreateControllerBlueprint ~ makeDonation ~ memberHistory", memberHistory);
+    // const donationAmount = memberHistoryResult.rows[0]['amount']
+    // const donationDate = memberHistoryResult.rows[0]['date']
+    // const donationInformation = {
+    //   donationAmount,
+    //   donationDate
+    // }
     next();
-    //reference the primary key on the users table to fill in foreign key on the donation table
   }
 }
 const CreateController = new CreateControllerBlueprint();

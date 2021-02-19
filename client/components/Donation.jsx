@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import '../styles.css';
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'; const useStyles = makeStyles((theme) => ({
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -16,6 +18,7 @@ import Button from '@material-ui/core/Button'; const useStyles = makeStyles((the
     },
   }
 }));
+
 const useStyles2 = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -26,7 +29,9 @@ const useStyles2 = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-})); export default function Donation(props) {
+}));
+
+export default function Donation(props) {
   const classes = useStyles();
   const classes2 = useStyles2();
   const [name, setName] = useState('');
@@ -36,7 +41,9 @@ const useStyles2 = makeStyles((theme) => ({
   const [date, setDate] = useState(new Date('2014-08-18T21:11:54'))
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState(''); function inputSubmitted(e) {
+  const [password, setPassword] = useState('');
+
+  function inputSubmitted(e) {
     setName(e.target.value);
     setDonationAmount(e.target.value);
     setCreditCard(e.target.value);
@@ -44,7 +51,8 @@ const useStyles2 = makeStyles((theme) => ({
     setDate(e.target.value);
     setEmail(e.target.value);
     setUsername(e.target.value);
-    setPassword(e.target.value); const donations = {
+    setPassword(e.target.value);
+    const donations = {
       'name': name,
       'donationAmount': donationAmount,
       'creditCard': creditCard,
@@ -58,6 +66,7 @@ const useStyles2 = makeStyles((theme) => ({
     }
     console.log('donationOBJ', donations)
     console.log('membersOBJ', members)
+
     fetch('/donation/makeDonation', {
       method: 'POST',
       headers: {
@@ -65,9 +74,12 @@ const useStyles2 = makeStyles((theme) => ({
       },
       body: JSON.stringify({ donations, members })
     })
+
     alert('Thanks for your donation!');
     window.location.replace('http://localhost:8080/')
-  } const resultArr = [];
+  }
+
+  const resultArr = [];
   const formItems = ["name", "donationAmount", "creditCard", "phone", "date", "email", "username", "password"];
   const formFunc = [setName, setDonationAmount, setCreditCard, setPhone, setDate, setEmail, setUsername, setPassword]
   // formItems.forEach(name => resultArr.push( <TextField id="outlined-basic" label={name} onChange={event => "set"+{name}(event.target.value)} variant="outlined"/>))
@@ -89,6 +101,7 @@ const useStyles2 = makeStyles((theme) => ({
       resultArr.push(<TextField id="outlined-basic" label={formItems[i]} onChange={event => formFunc[i](event.target.value)} variant="outlined" />)
     }
   }
+
   return (
     <section style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <h2>Donation Form</h2>
