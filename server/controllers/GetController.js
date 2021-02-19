@@ -1,11 +1,11 @@
 const db = require("../models/databaseModel");
-const { getUser, getAllDonations } = require('./queryFunctions/GetQueries.js');
+const { getUsernameQuery, getAllDonationsQuery } = require('./queryFunctions/GetQueries.js');
 
 
 class GetControllerBlueprint {
   async getDonationsSum(req, res, next) { //err is only included when our middleware is an error handling middleware and will ONLY run if an error is encountered. Catch blocks introduce a new error object.
     try {
-      const allDonations = getAllDonations();
+      const allDonations = getAllDonationsQuery();
       const result = await db.query(allDonations); //yields a number
       const donations = result.rows[0].sum;
       res.locals.donations = donations;
@@ -15,11 +15,10 @@ class GetControllerBlueprint {
 
     next();
   };
-  async getRecentDonations(req, res, next) {
+  async getLogin(req, res, next) { //runs only when user is logged in.
 
-  }
-  async getUser(req, res, next) { //runs only when user is logged in.
-    const userQuery = `SELECT name FROM ` //TABLE NAME
+
+
     next();
   }
 }
@@ -27,9 +26,11 @@ class GetControllerBlueprint {
 const GetController = new GetControllerBlueprint();
 
 const getDonationsSum = GetController.getDonationsSum;
+const getLogin = GetController.getLogin;
 
 module.exports = {
   getDonationsSum,
+  getLogin,
   GetController
 }
 

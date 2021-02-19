@@ -12,16 +12,16 @@ CREATE TABLE donations (
     phone_num VARCHAR(80) not null,
     date DATE not null,
     email VARCHAR(80) not null,
-    user_id int,
-    FOREIGN KEY(user_id) REFERENCES users(_id)
-    ON DELETE SET NULL
+    fk_user_id SERIAL,
+    CONSTRAINT fk_user_id
+      FOREIGN KEY(_id) 
+        REFERENCES users(_id)
+          ON DELETE SET NULL
 );
-
 
 - 'finds total amount of donations'
 SELECT sum(amount)
 FROM "donations" ;
-
 
 - 'insert values into table'
 INSERT INTO donations(name, amount, credit_card, phone_num, date, email, user_id)

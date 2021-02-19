@@ -1,19 +1,23 @@
 class GetQueriesBlueprint {
-  async getUser(req, res, next) {
-    const userQuery = `SELECT name FROM ` //TABLE NAME
-    next();
+  async getUsernameQuery(username) {
+    const userQuery = `SELECT * FROM users WHERE user_name = ${username}`;
   }
-  async getAllDonations() {
+  async getPasswordQuery(password) {
+    const passwordQuery = `SELECT password FROM users WHERE password = ${password}`;
+  }
+  async getAllDonationsQuery() {
     return 'SELECT sum(amount) FROM donations'; //TABLE NAME
   }
 }
 
 const GetQueries = new GetQueriesBlueprint();
 
-const getUser = GetQueries.getUser;
-const getAllDonations = GetQueries.getAllDonations;
+const getUsernameQuery = GetQueries.getUsernameQuery;
+const getPasswordQuery = GetQueries.getPasswordQuery;
+const getAllDonationsQuery = GetQueries.getAllDonationsQuery;
 
 module.exports = {
-  getUser,
-  getAllDonations
+  getUsernameQuery,
+  getPasswordQuery,
+  getAllDonationsQuery
 }

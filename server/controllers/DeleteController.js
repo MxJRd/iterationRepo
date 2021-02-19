@@ -9,8 +9,9 @@ class DeleteControllerBlueprint {
 
 const DeleteController = new DeleteControllerBlueprint();
 const deleteUser = DeleteController.deleteUser;
-
+const deleteDonation = DeleteController.deleteDonation;
 
 module.exports = {
   deleteUser,
+  deleteDonation
 }

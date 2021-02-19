@@ -22,49 +22,27 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Donation (props) {
-    const classes = useStyles();
-    const [ name, setName ] = useState('');
-    const [ donationAmount, setDonationAmount ] = useState('');
-    const [ creditCard , setCreditCard  ] = useState('');
-    const [ phone, setPhone ] = useState('');
-    const [ date, setDate ] = useState('');
-    const [ email, setEmail ] = useState('');
+    // const classes = useStyles();
     const [ username, setUsername] = useState('');
     const [ password, setPassword ] = useState('');
 
          
 
     function inputSubmitted(e){
-      setName(e.target.value);
-      setDonationAmount(e.target.value);
-      setCreditCard(e.target.value);
-      setPhone(e.target.value);
-      setDate(e.target.value);
-      setEmail(e.target.value);
       setUsername(e.target.value);
       setPassword(e.target.value);
-      
-      const donations = { 'name': name,
-                        'donationAmount': donationAmount,
-                        'creditCard': creditCard,
-                        'phone': phone,
-                        'date': date,
-                        'email': email,
-                        }
+
       const members = {
                         'username': username,
                         'password': password
-      }      
-      console.log('donationOBJ', donations)            
-      console.log('membersOBJ', members)     
+      }     
       
-      
-        fetch('/donation/makeDonation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({donations, members})
+      fetch('/login/authenticate', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({donations, members})
         })
       }
 
