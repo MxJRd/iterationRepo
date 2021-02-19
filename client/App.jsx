@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Donation from './components/Donation.jsx';
-
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Apply from './components/Apply.jsx';
+import ButtonAppBar from './components/Appbar.jsx';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-    }
-
-    componentDidMount() {
+    } componentDidMount() {
         console.log("inside component did mount")
         fetch('/getDonations')
             .then(res => res.json())
@@ -22,30 +21,31 @@ class App extends Component {
                 })
             })
             .catch(err => console.log('get project: ERROR: ', err));
-    }
-    
-    render() {
-       
+    } render() {
         return (
-            
-            <div className="home">
-                <div className="main">
-                    <h1>Codesmith Alumni Scholarship</h1>
-                    <p>info about scholarship </p>
-                    <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
+            <Router>
+                <div className="home">
+                    <Switch>
+                        <Route exact path="/">
+                            <div className="main">
+                                <ButtonAppBar />
+                                <h1>Codesmith Alumni Scholarship</h1>
+                                <p>info about scholarship </p>
+                                <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>                    </div>
+                            <button><Link to="/donation"> Donate </Link></button>
+                            <button><Link to="/apply" style={{ color: 'black' }}> Apply </Link></button>
+                        </Route>
+                        <Route path="/donation">
+                            <Donation />
+                        </Route>
+                        <Route path="/apply">
+                            <Apply />
+                        </Route>
+                    </Switch>
                 </div>
-                <form>
-                    <button id="donateHome"> Donate </button>
-                    <button id="applyHome">Apply</button>
-                </form>
-               <Donation />
-               
-                
-
-            </div>
+            </Router>
         )
     }
-
 };
 
 export default App;

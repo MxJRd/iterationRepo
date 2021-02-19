@@ -12,9 +12,6 @@ class AuthenticationBlueprint {
     // const passwordQueryResult = db.query(passwordQueryStr);
 
 
-
-
-
     const userResult = userQueryResult.rows;
     // const hashedPW = userQueryResult.rows[1]['password'];
     const loggedIn = await bcrypt.compare(password, hashedPW);
@@ -22,8 +19,8 @@ class AuthenticationBlueprint {
 
     // const hashedPW = passwordQueryResult.rows[1]['password'];
     // const pass
-    if (username === usernameFound && loggedIn) { //create a cookie
-      //And/or Send them to a members page.
+    if (username === usernameFound && loggedIn) {
+      // Send them to a members page.
       next();
     } else {
       throw "User credentials are incorrect.";
